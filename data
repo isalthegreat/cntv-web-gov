@@ -7,3 +7,22 @@ berita.json
     "isi": "Seorang anggota kepolisian Colom dilaporkan menabrak seorang pria disabilitas di persimpangan utama Distrik Tolvar sore ini. Insiden ini memicu kemarahan warga sekitar yang langsung mengepung lokasi kejadian. Pihak berwenang belum memberi pernyataan resmi, namun video amatir warga telah tersebar luas di media sosial."
   }
 ]
+fetch('./data/berita.json')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('berita-container');
+
+    data.forEach(berita => {
+      const card = `
+        <div class="berita-card">
+          <img src="${berita.gambar}" alt="${berita.judul}" />
+          <h2>${berita.judul}</h2>
+          <p><small>${berita.tanggal}</small></p>
+          <p>${berita.isi}</p>
+        </div>
+      `;
+      container.innerHTML += card;
+    });
+  })
+  .catch(error => console.error('Gagal load berita:', error));
+
